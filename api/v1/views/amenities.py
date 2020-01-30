@@ -28,9 +28,9 @@ def get_amenity(amenity_id):
 def delete_amenity(amenity_id):
     """ doc for delete_amenity method """
     amenity = storage.get("Amenity", amenity_id)
-    if not city:
+    if not amenity:
         abort(404)
-    city.delete()
+    amenity.delete()
     storage.save()
     return make_response(jsonify({}), 200)
 
