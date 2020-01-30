@@ -10,7 +10,7 @@ from models.city import City
 @app_views.route('/states/<state_id>/cities', methods=["GET"])
 def get_cities(state_id):
     """ doc for get_cities method """
-    state=storage.get("State",state_id)
+    state = storage.get("State", state_id)
     if not state:
         abort(404)
     return jsonify([city.to_dict() for city in state.cities])
