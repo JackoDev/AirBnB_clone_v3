@@ -64,8 +64,7 @@ def update_city(city_id):
     if not b_req:
         abort(400, "Not a JSON")
     for key, value in b_req.items():
-        if key != 'id' and key != 'state_id' and key != 'created_at'
-        and key != 'updated_at':
+        if key not in ['id', 'state_id', 'created_at', 'updated_at']:
             setattr(city, key, value)
     storage.save()
     return make_response(jsonify(city.to_dict()), 200)
