@@ -1,8 +1,9 @@
 #!/usr/bin/python3
 """ doc for states.py module """
 from models import storage
-from flask import abort, jsonify, request
+from flask import abort, jsonify, request, make_response
 from api.v1.views import app_views
+from models.state import State
 
 
 @app_views.route('/states')
@@ -44,13 +45,13 @@ def create_state():
         abort(400, "Missing name")
     state = State(**state_new)
     storage.new(state)
-    state.save()
-    return jsonify(state.to_dict()), 201
+    storage.save()
+    return make_response(jsonify(state.to_dict()), 201)
 
 
 @app_views.route("/states/<state_id>", methods=['PUT'])
 def update_state(state_id):
-    """ doc for update_state """"
+    """ doc for update_state """
     state = storage.get("State", id=state_id)
     if not state:
         abort(404)
