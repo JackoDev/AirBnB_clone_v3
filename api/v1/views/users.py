@@ -42,8 +42,10 @@ def create_user():
     user_new = request.get_json()
     if not user_new:
         abort(400, "Not a JSON")
-    if 'name' not in user_new:
-        abort(400, "Missing name")
+    if 'email' not in user_new:
+        abort(400, "Missing email")
+    if 'password' not in user_new:
+        abort(400, "Missing password")
     user = User(**user_new)
     storage.new(user)
     storage.save()
