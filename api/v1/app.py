@@ -16,6 +16,7 @@ def teardown_request(exception=None):
     """ a method to call close() """
     storage.close()
 
+
 if __name__ == "__main__":
     host1 = environ.get("HBNB_API_HOST")
     port1 = environ.get("HBNB_API_PORT")
