@@ -21,4 +21,10 @@ def create_review(place_id):
         abort(400, "Missing text")
     place = storage.get("Place", place_id)
     user = storage.get("User", id=request.json['user_id'])
+    if place and user:
+        request.json['place_id'] = place_id
+        review = models.review.Review(**request.json)
+        review.save()
+        return jsonify(review.to_dict()), 201
+    abort(404)
     
