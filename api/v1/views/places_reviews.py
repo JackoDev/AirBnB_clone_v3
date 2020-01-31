@@ -11,7 +11,7 @@ from api.v1.views import app_views
 @app_views.route('places/<place_id>/reviews', methods=['POST'])
 def create_review(place_id):
     """
-    Create and returns a new review with the status code 201
+    Status code 201
     """
     if not request.json:
         abort(400, "Not a JSON")
@@ -26,5 +26,15 @@ def create_review(place_id):
         review = models.review.Review(**request.json)
         review.save()
         return jsonify(review.to_dict()), 201
+    abort(404)
+
+@app_views.route('reviews/<review_id>')
+def get_review(review_id):
+    """
+    app Review.route  object by id
+    """
+    review = storage.get("Review", review_id)
+    if review:
+        return jsonify(review.to_dict())
     abort(404)
     
